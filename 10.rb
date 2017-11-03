@@ -1,3 +1,4 @@
+# Accepted
 range = (1..20)
 p 'Дипазон ' + range.to_s
 array = (2...20).to_a
