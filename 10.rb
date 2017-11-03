@@ -1,5 +1,6 @@
-d = (1...20)
-p 'Дипазон ' + d.to_s
-d = (1+1...20)
-p 'Массив в порядке убывания ' + d.to_a.reverse.to_s
-p 'Размер массива ' + d.to_a.reverse.count.to_s + ' элементов'
+range = (1..20)
+p 'Дипазон ' + range.to_s
+array = (2...20).to_a
+p 'Массив в порядке убывания ' + array.reverse.to_s
+p 'Размер массива ' + array.count.to_s + ' элементов'
+
