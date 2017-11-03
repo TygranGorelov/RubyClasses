@@ -1,3 +1,4 @@
+# accepted
 a=[]
 b=[]
 [ 0, 1, 0, 3, 4, 8, 0].each_with_index do |value, index|
