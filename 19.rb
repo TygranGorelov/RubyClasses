@@ -2,15 +2,30 @@ text = 'На Западе, эта, последовательность, был�
 
 symbols = text.split('')
 
-rezult =[]
-symbols.each do |item|
+rezult = symbols.map do |item|
   if item == '.'
-    rezult << ','
+    ','
   elsif item == ','
-    rezult << '.'
+    '.'
   else
-    rezult << item
+    item
   end
 end
 
-p rezult.join(' ')
+p rezult.join
+
+
+# rezult = []
+# symbols.each do |item|
+#   if item == '.'
+#     rezult << ','
+#   elsif item == ','
+#     rezult << '.'
+#   else
+#     rezult << item
+#   end
+# end
+#
+# p rezult.join
+
+
