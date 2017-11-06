@@ -11,14 +11,17 @@ hash = INIT_HASH.dup
 hash.delete_if { |_, v| v.is_a?(String) || v.is_a?(Numeric) }
 p "Удалены строки и числа --> #{hash}"
 
-
 hash2 = INIT_HASH.dup
-keys = []
-values = []
-hash2.each do |key, value|
-  keys << key
-  values << value
-end
-keys_r = keys.reverse
-rez = keys_r.zip(values)
-p "Реверс ключей не меняя значения --> #{rez.to_h}"
+rez = hash2.keys.reverse.zip(hash2.values).to_h
+p "Реверс ключей не меняя значения --> #{rez}"
+
+# hash2 = INIT_HASH.dup
+# keys = []
+# values = []
+# hash2.each do |key, value|
+#   keys << key
+#   values << value
+# end
+# keys_r = keys.reverse
+# rez = keys_r.zip(values)
+# p "Реверс ключей не меняя значения --> #{rez.to_h}"
