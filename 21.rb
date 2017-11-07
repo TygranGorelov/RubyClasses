@@ -1,58 +1,20 @@
-# 1) вывести унникальный сортированый массив положительных чисел из всех значений хешей
-# 2) найти в массиве первый всртечный хеш, где a < 0
-# 3) преобразовать исходный массив в хеш вида {a: сумма всех значений a, b: сумма всех значений b}
-# 4) отсортировать весь массив по значениям b.
-# 5) выбрать все элементы массива у которых b делится на 2 без остатка
-# 6) проверить есть ли в массиве элемент у которого все значения < 0
-
-INIT_ARRAY = [{a: 1, b: 4}, {a: 33, b: -8}, {a: -22, b: 23}, {a: -2.01, b: 77}, {a: 15, b: 13}].freeze
+INIT_ARRAY = [{a: 1, b: 4}, {a: -33, b: -8}, {a: -22, b: 23}, {a: -2.01, b: 77}, {a: 15, b: 13}].freeze
 
 array = INIT_ARRAY.dup
-p array
 
-# keys = []
-# values = []
-# values2 = []
-#
-# array.each do |key, value|
-#   hash = key
-#   hash.each do |key2, value2|
-#     values2 << value2 if value2.positive?
-#   end
-# end
-# p "Уникальный сортированый массив положительных чисел --> #{values2.sort}"
+p "1. Сортированый массив положительных чисел  #{array.map(&:values).flatten.map { |x| x >= 0 ? x : nil }.compact.sort}"
 
-#---------------------------------------------------------------------------
-#
-# values3 = []
-#
-# array.each do |key, value|
-#   hash = key
-#   hash.each do |key2, value2|
-#     # p key2
-#
-#     values3 << value2 if value2 < 0
-#
-#     # values3 << value2 if key2 == ':a' && value2 < 0
-#
-#     # if key2 == ':a' && value2 < 0
-#     #   values3 << value2
-#     # end
-#
-#   end
-# end
-#
-# p values3
-#
-# #---------------------------------------------------------------------------
-# # 3) преобразовать исходный массив в хеш вида {a: сумма всех значений a, b: сумма всех значений b}
-#
-# # array.each do |key, value|
-# #   hash = key
-# #   hash.each do |key2, value2|
-# #     p key2
-# #     p value2 if key2 == 'a'
-# #
+p "2. Первый всртечный хеш, где a < 0  #{array.find { |hash| hash[:a] < 0 } }"
 
-# #   end
-# # end
+p "3. Сумма всех :a и :b  #{result = {
+    a: array.map { |hash| hash[:a] }.sum,
+    b: array.map { |hash| hash[:b] }.sum
+} }"
+
+p "4. Отсортировать весь массив по значениям :b  #{array.sort_by { |hash| hash[:b] } }"
+
+p "5. Элементы у которых :b делится на 2 без остатка  #{ array.map { |hash| hash[:b] if hash[:b] % 2 == 0 }.compact }"
+
+p "6. Элемент у которого все значения < 0  #{ array.map { |hash| hash[:a] < 0 && hash[:b] < 0 ? hash : nil }.compact }"
+
+p "6+. Есть ли в массиве элемент у которого все значения < 0  #{ array.any? {|hash| hash[:a] < 0 && hash[:b] < 0} }"
