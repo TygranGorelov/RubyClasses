@@ -1,21 +1,14 @@
-i = 1
-str = 1
+puts 'Введите размер желаемой матрицы '
+size = gets.to_i
 
-
-while str<=5
-
-end
-
-
-
-
-while i <= 5
-  if (i == 1)
-    print 1
-    i+=1
-  else
-    print 0
-    i+=1
+size.times do |a|
+  row = ''
+  size.times do |b|
+    if a == b
+      row += '1'
+    else
+      row += '0'
+    end
   end
+  p row
 end
-
