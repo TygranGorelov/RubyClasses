@@ -1,3 +1,4 @@
+# Accepted
 str = 'i love ruby'
 
 def formatize(str, format)

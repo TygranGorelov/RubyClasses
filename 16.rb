@@ -1,3 +1,4 @@
+# Accepted
 students = {
     Ivanov: 160,
     Petrov: 193,

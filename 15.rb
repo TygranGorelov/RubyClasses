@@ -1,4 +1,4 @@
-# accepted
+# Accepted
 heights = [160, 168, 180, 125, 193, 154, 167, 185, 145]
 last_names = %w[Иванов Петров Сидоров Кличко Зубов Яковлев Васильев Романов]
 highest_index = heights.index(heights.max)

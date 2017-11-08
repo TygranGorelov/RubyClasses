@@ -1,3 +1,4 @@
+# Accepted
 INIT_ARRAY = [{a: 1, b: 4}, {a: -33, b: -8}, {a: -22, b: 23}, {a: -2.01, b: 77}, {a: 15, b: 13}].freeze
 
 array = INIT_ARRAY.dup

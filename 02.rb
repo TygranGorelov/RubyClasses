@@ -1,3 +1,4 @@
+# Accepted
 puts 'Hello. Please enter a radius: '
 
 r = gets.to_i

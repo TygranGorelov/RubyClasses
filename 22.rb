@@ -1,3 +1,4 @@
+# Accepted
 INIT_HASH = {
     key1: 'FIRST',
     key2: 'SECOND',

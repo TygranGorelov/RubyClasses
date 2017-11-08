@@ -1,3 +1,4 @@
+# Accepted
 INIT_HASH = {
   a: 12,
   b: 74.9,

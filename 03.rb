@@ -1,3 +1,4 @@
+# Accepted
 puts 'Введите размер желаемой матрицы '
 
 size = gets.to_i

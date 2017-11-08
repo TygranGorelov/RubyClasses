@@ -7,5 +7,4 @@ array.each { |value|
   new_array << value
   new_array << nil if value.positive?
 }
-
 p new_array

@@ -1,4 +1,4 @@
-# accepted
+# Accepted
 array = [ 1, 5, 20, 6, 34, 78, 4, 23, 8, 6, 16, 10, 5, 9]
 array2 = array[(array.index(array.min) + 1)...array.index(array.max)]
 
