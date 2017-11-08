@@ -19,12 +19,12 @@ user_key = u_key.to_sym
 
 main_hash = INIT_HASH
 
-def search(m_h, u_k)
-  return m_h[u_k] if m_h.has_key? u_k
-  m_h.each do |_, value|
-    return search(value, u_k) if value.is_a? Hash
+def search(main_hash, user_key)
+  return main_hash[user_key] if main_hash.has_key? user_key
+  main_hash.each do |_, value|
+    return search(value, user_key) if value.is_a? Hash
   end
+  nil
 end
 
 p search(main_hash, user_key)
-

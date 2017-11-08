@@ -1,14 +1,11 @@
 puts 'Введите размер желаемой матрицы '
+
 size = gets.to_i
 
 size.times do |a|
   row = ''
   size.times do |b|
-    if a == b
-      row += '1'
-    else
-      row += '0'
-    end
+    row += a == b ? '1' : '0'
   end
-  p row
+  puts row
 end
