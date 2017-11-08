@@ -1,17 +1,20 @@
-puts 'Введите предложение: '
-user_string = gets.strip
+str = 'i love ruby'
 
-def sentenses(x)
-  arr = x.split
-  arr2= []
-  arr.each do |x|
-    arr2 << x.capitalize
+def formatize(str, format)
+  arr = str.split
+  case format
+    when :camel
+      arr.map(&:capitalize).join
+    when :underscore
+      arr.map(&:downcase).join('_')
+    when :css
+      arr.map(&:downcase).join('-')
+    else
+      str
   end
-  p arr2.join('')
-
-  p x.downcase.split().join('_')
-
-  p x.downcase.split().join('-')
 end
 
-sentenses(user_string)
+p formatize(str, :camel)
+p formatize(str, :underscore)
+p formatize(str, :css)
+p formatize(str, :csa)
