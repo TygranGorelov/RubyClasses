@@ -14,6 +14,7 @@ class Robot
       p 'Position: x = ' + @x.to_s + ', y = ' + @y.to_s + ', direction - ' + @f
   end
 
+  # moves
   def move_east
     @x += 1
   end
@@ -30,50 +31,39 @@ class Robot
     @y -= 1
   end
 
-  # def right_east
-  #
-  # end
+  # right
+  def right_east
+    @f = 'SOUTH'
+  end
 
+  def right_south
+    @f = 'WEST'
+  end
 
+  def right_west
+    @f = 'NORTH'
+  end
 
-
-  def right
-    case
-    when @f == 'EAST'
-      @f = 'SOUTH'
-      p 'Robot turned RIGHT to SOUTH'
-    when @f == 'SOUTH'
-      @f = 'WEST'
-      p 'Robot turned RIGHT to WEST'
-    when @f == 'WEST'
-      @f = 'NORTH'
-      p 'Robot turned RIGHT to NORTH'
-    else
-      @f = 'EAST'
-      p 'Robot turned RIGHT to EAST'
-    end
+  def right_north
+    @f = 'EAST'
   end
 
 
+  # left
+  def left_east
+    @f = 'NORTH'
+  end
 
+  def left_north
+    @f = 'WEST'
+  end
 
+  def left_west
+    @f = 'SOUTH'
+  end
 
-
-  def left
-    case
-    when @f == 'EAST'
-      @f = 'NORTH'
-      p 'Robot turned LEFT to NORTH'
-    when @f == 'NORTH'
-      @f = 'WEST'
-      p 'Robot turned LEFT to WEST'
-    when @f == 'WEST'
-      @f = 'SOUTH'
-      p 'Robot turned LEFT to SOUTH'
-    else
-      @f = 'EAST'
-      p 'Robot turned LEFT to EAST'
-    end
+  def left_south
+    @f = 'EAST'
   end
 
 end

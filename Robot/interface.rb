@@ -85,11 +85,40 @@ class Interface
     end
 
     if command == 'RIGHT'
-      @robot.right
+      case
+      when @robot.f == 'EAST'
+        @robot.right_east
+        p 'Robot turned RIGHT to SOUTH'
+      when @robot.f == 'SOUTH'
+        @robot.right_south
+        p 'Robot turned RIGHT to WEST'
+      when @robot.f == 'WEST'
+        @robot.right_west
+        p 'Robot turned RIGHT to NORTH'
+      else
+        @robot.right_north
+        p 'Robot turned RIGHT to EAST'
+      end
     end
+
+
     if command == 'LEFT'
-      @robot.left
+      case
+      when @robot.f == 'EAST'
+        @robot.left_east
+        p 'Robot turned LEFT to NORTH'
+      when @robot.f == 'NORTH'
+        @robot.left_north
+        p 'Robot turned LEFT to WEST'
+      when @robot.f == 'WEST'
+        @robot.left_west
+        p 'Robot turned LEFT to SOUTH'
+      else
+        @robot.left_south
+        p 'Robot turned LEFT to EAST'
+      end
     end
+
     if command == 'TABLE'
       @table.table
     end
