@@ -63,12 +63,27 @@ class Interface
   def steps
     puts 'Let\'s MOVE the Robot or get a REPORT about his position'
     command = gets.strip
+
     if command == 'REPORT'
       @robot.report
     end
+
     if command == 'MOVE'
-      @robot.move
+      if @robot.f == 'EAST'
+        @robot.move_east
+        p 'Robot moved to EAST'
+      elsif @robot.f == 'SOUTH'
+        @robot.move_south
+        p 'Robot moved to SOUTH'
+      elsif @robot.f == 'WEST'
+        @robot.move_west
+        p 'Robot moved to WEST'
+      else       #f == 'NORTH'
+        @robot.move_north
+        p 'Robot moved to NORTH'
+      end
     end
+
     if command == 'RIGHT'
       @robot.right
     end
@@ -78,6 +93,7 @@ class Interface
     if command == 'TABLE'
       @table.table
     end
+
     return steps
   end
 

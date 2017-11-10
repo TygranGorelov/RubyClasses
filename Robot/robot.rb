@@ -5,8 +5,8 @@ class Robot
   attr_accessor :x, :y, :f
 
   def initialize (x, y, f)
-    @x = x
-    @y = y
+    @x = x.to_i
+    @y = y.to_i
     @f = f
   end
 
@@ -14,23 +14,28 @@ class Robot
       p 'Position: x = ' + @x.to_s + ', y = ' + @y.to_s + ', direction - ' + @f
   end
 
-  def move
-    @x = @x.to_i
-    @y = @y.to_i
-    if @f == 'EAST'
-      @x += 1
-      p 'Robot moved to EAST'
-    elsif @f == 'SOUTH'
-      @y -= 1
-      p 'Robot moved to SOUTH'
-    elsif @f == 'WEST'
-      @x -= 1
-      p 'Robot moved to WEST'
-    else       #@f == 'NORTH'
-      @y += 1
-      p 'Robot moved to NORTH'
-    end
+  def move_east
+    @x += 1
   end
+
+  def move_west
+    @x -= 1
+  end
+
+  def move_north
+    @y += 1
+  end
+
+  def move_south
+    @y -= 1
+  end
+
+  # def right_east
+  #
+  # end
+
+
+
 
   def right
     case
@@ -48,6 +53,11 @@ class Robot
       p 'Robot turned RIGHT to EAST'
     end
   end
+
+
+
+
+
 
   def left
     case
