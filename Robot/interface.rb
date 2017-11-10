@@ -4,6 +4,7 @@ require './robot'
 class Interface
 
   attr_accessor :robot
+  attr_accessor :table
 
   def create_table
     puts 'Let\'s create table first. Insert table size:'
@@ -14,6 +15,7 @@ class Interface
       b = gets.strip
       if b.match(/^\d+$/)&.to_s&.to_i&.positive?
         p 'Table size ' + a + 'x' + b
+        @table = Table.new(a, b)
       else
         p 'Only positive integers!'
         return create_table
@@ -58,8 +60,8 @@ class Interface
 
   end
 
-  def next2
-    puts 'Let\'s move the Robot'
+  def steps
+    puts 'Let\'s MOVE the Robot or get a REPORT about his position'
     command = gets.strip
     if command == 'REPORT'
       @robot.report
@@ -67,8 +69,16 @@ class Interface
     if command == 'MOVE'
       @robot.move
     end
-
-    return next2
+    if command == 'RIGHT'
+      @robot.right
+    end
+    if command == 'LEFT'
+      @robot.left
+    end
+    if command == 'TABLE'
+      @table.table
+    end
+    return steps
   end
 
 
