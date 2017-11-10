@@ -3,15 +3,9 @@ class Table
   attr_accessor :a, :b
 
   def initialize (a, b)
-    @a = a
-    @b = b
+    @a = a.to_i
+    @b = b.to_i
   end
-
-  def table
-    p 'Table size: a = ' + @a.to_s + ', b = ' + @b.to_s
-
-  end
-
 
 end
 

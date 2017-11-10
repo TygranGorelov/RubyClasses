@@ -32,10 +32,10 @@ class Interface
     if command == 'PLACE'
       p 'Input X coord: '
       x = gets.strip
-      if x.match(/^\d+$/)&.to_s&.to_i
+      if x.match(/^\d+$/)&.to_s&.to_i && x.to_i <= @table.a-1
         p 'Input Y coord: '
         y = gets.strip
-        if y.match(/^\d+$/)&.to_s&.to_i
+        if y.match(/^\d+$/)&.to_s&.to_i && y.to_i <= @table.b-1
           p 'Direction (EAST, WEST, NORTH, SOUTH): '
           f = gets.strip
           if f == 'EAST' || f == 'WEST' || f == 'NORTH' || f == 'SOUTH'
@@ -46,11 +46,11 @@ class Interface
             return place
           end
         else
-          p 'Only positive integers!'
+          p 'Only positive integers, no more then table size!'
           return place
         end
       else
-        p 'Only positive integers!'
+        p 'Only positive integers, no more then table size!!'
         return place
       end
     else
@@ -61,7 +61,7 @@ class Interface
   end
 
   def steps
-    puts 'Let\'s MOVE the Robot or get a REPORT about his position'
+    puts 'Let\'s MOVE, turn RIGHT, LEFT the Robot or get a REPORT about his position. HELP for help'
     command = gets.strip
 
     if command == 'REPORT'
@@ -69,18 +69,20 @@ class Interface
     end
 
     if command == 'MOVE'
-      if @robot.f == 'EAST'
+      if @robot.f == 'EAST' && @table.a >= 2 && @robot.x <= @table.a -= 2
         @robot.move_east
         p 'Robot moved to EAST'
-      elsif @robot.f == 'SOUTH'
+      elsif @robot.f == 'SOUTH' && @robot.y >= @table.b -= (@table.b - 2)
         @robot.move_south
         p 'Robot moved to SOUTH'
-      elsif @robot.f == 'WEST'
+      elsif @robot.f == 'WEST' && @robot.x >= @table.a -= (@table.a -= 2)
         @robot.move_west
         p 'Robot moved to WEST'
-      else       #f == 'NORTH'
+      elsif @robot.f == 'NORTH' && @table.b >= 2 && @robot.y <= @table.b -= 2
         @robot.move_north
         p 'Robot moved to NORTH'
+      else
+        p 'WARNING Robot can fall!!!'
       end
     end
 
@@ -101,7 +103,6 @@ class Interface
       end
     end
 
-
     if command == 'LEFT'
       case
       when @robot.f == 'EAST'
@@ -119,8 +120,12 @@ class Interface
       end
     end
 
-    if command == 'TABLE'
-      @table.table
+    if command == 'HELP'
+      p 'You can use next commands: '
+      p 'MOVE - to move you Robot on the table'
+      p 'LEFT - to turn Robot left'
+      p 'RIGHT - to turn Robot right'
+      p 'REPORT - to know Robot\'s position and direction'
     end
 
     return steps
