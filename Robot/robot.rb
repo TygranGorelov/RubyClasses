@@ -2,16 +2,13 @@ require './table'
 
 class Robot
 
-  attr_accessor :x, :y, :f, :a, :b
+  attr_accessor :x, :y, :f
 
-  def initialize (x, y, f, a, b)
+  def initialize (x, y, f)
     @x = x
     @y = y
     @f = f
-    @a = a
-    @b = b
   end
-
 
   def report
       p 'Position: x = ' + @x.to_s + ', y = ' + @y.to_s + ', direction - ' + @f
@@ -20,21 +17,18 @@ class Robot
   def move
     @x = @x.to_i
     @y = @y.to_i
-    if @f == 'EAST' && @x < @b-1
+    if @f == 'EAST'
       @x += 1
       p 'Robot moved to EAST'
-
     elsif @f == 'SOUTH'
       @y -= 1
       p 'Robot moved to SOUTH'
     elsif @f == 'WEST'
       @x -= 1
       p 'Robot moved to WEST'
-    elsif       #@f == 'NORTH'
+    else       #@f == 'NORTH'
       @y += 1
       p 'Robot moved to NORTH'
-    else
-      p 'STOP!'
     end
   end
 
