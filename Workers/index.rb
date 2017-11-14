@@ -18,59 +18,40 @@ require 'rubygems'
 require 'bundler/setup'
 require 'faker'
 
-require './basic'
+require './workers'
 require './hourly'
 require './fixed'
-
-# employees = [
-#   Fixed.new('Ivanov_H', 1650),
-#   Fixed.new('Petrov_F', 2000),
-#   Fixed.new('Sidorov_F', 1500),
-#   Fixed.new('Klichko_F', 1200),
-#   Fixed.new('Zubov_F', 2150),
-#   Fixed.new('Yakovlev_F', 2100),
-#   Fixed.new('Vasilev_F', 1500),
-#   Fixed.new('Romanov_F', 1480),
-#   Fixed.new('Kot_F', 1200),
-#   Fixed.new('Cherniy_F', 2050),
-#   Fixed.new('Glebov_F', 1444),
-#   Hourly.new('Ivanov_H', 10),
-#   Hourly.new('Petrov_H', 8),
-#   Hourly.new('Sidorov_H', 7),
-#   Hourly.new('Klichko_H', 12),
-#   Hourly.new('Zubov_H', 9),
-#   Hourly.new('Yakovlev_H', 11),
-#   Hourly.new('Vasilev_H', 6),
-#   Hourly.new('Romanov_H', 15),
-#   Hourly.new('Kot_H', 10),
-#   Hourly.new('Cherniy_H', 7),
-#   Hourly.new('Glebov_H', 9)
-# ]
 
 employees = []
 10.times do |_|
   employees << Fixed.new(Faker::Name.name, rand(999..2000))
 end
+
+
 10.times do |_|
   employees << Hourly.new(Faker::Name.name, rand(10..99))
 end
 
+p employees.map(&:avarage)
+
+
 new_arr = []
 p 'Работники по убыванию среднемесячного заработка: '
-employees.sort_by{|x| x.salary}.each do |x|
-  obj = {id: x.id, name: x.name, salary: x.salary, class: x.class }
+employees.sort_by{ |item| item.avarage }.each do |employee|
+  obj = {
+    id: employee.id,
+    name: employee.name,
+    avarage: employee.avarage,
+    class: employee.class
+  }
   new_arr << obj
-  puts obj.values.join(' - ')
+  p obj.values.join(' - ')
 end
 
 p 'Первые 5 работников с наименьшей з/п: '
-# puts new_arr.first(5)
-new_arr.first(5).each do |obj|
-  puts obj.values.join(' - ')
-end
+new_arr.first(5).each { |obj| p obj.values.join(' - ') }
 
 p 'Последние 3 идентификатора работников из списка: '
-new_arr.last(3).each {|item| puts item[:id]}
+new_arr.last(3).each { |item| puts item[:id] }
 
 p 'Организовать запись и чтение коллекции в/из файл: '
-

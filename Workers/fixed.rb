@@ -1,19 +1,8 @@
-require './basic'
-require './hourly'
+require './workers'
 
-class Fixed < Basic
-
-  attr_accessor :name, :month_wage
-
-  def initialize(name, month_wage)
-    @name = name
-    @month_wage = month_wage
-    calculate
-    super()
-  end
+class Fixed < Workers
 
   def calculate
-    @salary = @month_wage
+    @salary
   end
-
 end
