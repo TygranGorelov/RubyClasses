@@ -1,74 +1,76 @@
 # Построить три класса (базовый и 2 потомка), описывающих некоторых работников с почасовой оплатой (один из потомков)
 # и фиксированной оплатой (второй потомок). Описать в базовом классе абстрактный метод для расчета среднемесячной
 # заработной платы.
-# Для «повременщиков» формула для расчета такова:
+#         Для «повременщиков» формула для расчета такова:
+#                         «среднемесячная заработная плата = 20.8 * 8 * почасовую ставку»
+#         для работников с фиксированной оплатой
+#                         «среднемесячная заработная плата = фиксированной месячной оплате».
 #
-#               «среднемесячная заработная плата = 20.8 * 8 * почасовую ставку»,
-#
-# для работников с фиксированной оплатой
-#
-#               «среднемесячная заработная плата = фиксированной месячной оплате».
-#
-# a) Упорядочить всю последовательность работников по убыванию среднемесячного заработка. При совпадении
-# зарплаты – упорядочивать данные по алфавиту по имени. Вывести идентификатор работника, имя и
-# среднемесячный заработок для всех элементов списка.
+# a) Упорядочить всю последовательность работников по убыванию среднемесячного заработка.
+# При совпадении зарплаты – упорядочивать данные по алфавиту по имени. Вывести идентификатор работника,
+# имя и среднемесячный заработок для всех элементов списка.
 # b) Вывести первые 5 имен работников из полученного в пункте а) списка.
 # c) Вывести последние 3 идентификатора работников из полученного в пункте а) списка.
 # d) Организовать запись и чтение коллекции в/из файл.
 # e) Организовать обработку некорректного формата входного файла.
 
+require 'rubygems'
+require 'bundler/setup'
+require 'faker'
+
 require './basic'
 require './hourly'
 require './fixed'
 
+# employees = [
+#   Fixed.new('Ivanov_H', 1650),
+#   Fixed.new('Petrov_F', 2000),
+#   Fixed.new('Sidorov_F', 1500),
+#   Fixed.new('Klichko_F', 1200),
+#   Fixed.new('Zubov_F', 2150),
+#   Fixed.new('Yakovlev_F', 2100),
+#   Fixed.new('Vasilev_F', 1500),
+#   Fixed.new('Romanov_F', 1480),
+#   Fixed.new('Kot_F', 1200),
+#   Fixed.new('Cherniy_F', 2050),
+#   Fixed.new('Glebov_F', 1444),
+#   Hourly.new('Ivanov_H', 10),
+#   Hourly.new('Petrov_H', 8),
+#   Hourly.new('Sidorov_H', 7),
+#   Hourly.new('Klichko_H', 12),
+#   Hourly.new('Zubov_H', 9),
+#   Hourly.new('Yakovlev_H', 11),
+#   Hourly.new('Vasilev_H', 6),
+#   Hourly.new('Romanov_H', 15),
+#   Hourly.new('Kot_H', 10),
+#   Hourly.new('Cherniy_H', 7),
+#   Hourly.new('Glebov_H', 9)
+# ]
 
-# hourly_employees = %w[ Ivanov_H, Petrov_H, Sidorov_H, Klichko_H, Zubov_H, Yakovlev_H, Vasilev_H, Romanov_H, Kot_H, Cherniy_H, Glebov_H]
-#
-# fixed_employees = %w[ Ivanov_F, Petrov_F, Sidorov_F, Klichko_F, Zubov_F, Yakovlev_F, Vasilev_F, Romanov_F, Kot_F, Cherniy_F, Glebov_F]
-#
-# hourly_employees_wage = [10, 8, 7, 12, 9, 11, 6, 15, 10, 7, 9]
-#
-# fixed_employees_wage = [1650, 2000, 1500, 1200, 2150, 2100, 1500, 1480, 1200, 2050, 1444]
+employees = []
+10.times do |_|
+  employees << Fixed.new(Faker::Name.name, rand(999..2000))
+end
+10.times do |_|
+  employees << Hourly.new(Faker::Name.name, rand(10..99))
+end
 
-hourly_employees = {
-    Ivanov_H: 10,
-    Petrov_H: 8,
-    Sidorov_H: 7,
-    Klichko_H: 12,
-    Zubov_H: 9,
-    Yakovlev_H: 11,
-    Vasilev_H: 6,
-    Romanov_H: 15,
-    Kot_H: 10,
-    Cherniy_H: 7,
-    Glebov_H: 9
-}
+new_arr = []
+p 'Работники по убыванию среднемесячного заработка: '
+employees.sort_by{|x| x.salary}.each do |x|
+  obj = {id: x.id, name: x.name, salary: x.salary, class: x.class }
+  new_arr << obj
+  puts obj.values.join(' - ')
+end
 
-fixed_employees = {
-    Ivanov_H: 1650,
-    Petrov_H: 2000,
-    Sidorov_H: 1500,
-    Klichko_H: 1200,
-    Zubov_H: 2150,
-    Yakovlev_H: 2100,
-    Vasilev_H: 1500,
-    Romanov_H: 1480,
-    Kot_H: 1200,
-    Cherniy_H: 2050,
-    Glebov_H: 1444
-}
+p 'Первые 5 работников с наименьшей з/п: '
+# puts new_arr.first(5)
+new_arr.first(5).each do |obj|
+  puts obj.values.join(' - ')
+end
 
+p 'Последние 3 идентификатора работников из списка: '
+new_arr.last(3).each {|item| puts item[:id]}
 
-
-puts 'Зарплата на предприятии: '
-
-basic = Basic.new
-hourly = Hourly.new
-fixed = Fixed.new
-
-p 'З/п у почасовых работников: ' + hourly.wage_per_month.to_s
-p 'З/п у работников с фиксированной оплатой: ' + fixed.wage_per_month.to_s
-
-p 'З/п у почасовых работников: '
-
+p 'Организовать запись и чтение коллекции в/из файл: '
 

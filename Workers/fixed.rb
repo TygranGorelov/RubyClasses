@@ -1,9 +1,19 @@
 require './basic'
+require './hourly'
 
 class Fixed < Basic
 
-  def wage_per_month
-    @wage_per_month = @month_wage
+  attr_accessor :name, :month_wage
+
+  def initialize(name, month_wage)
+    @name = name
+    @month_wage = month_wage
+    calculate
+    super()
+  end
+
+  def calculate
+    @salary = @month_wage
   end
 
 end
