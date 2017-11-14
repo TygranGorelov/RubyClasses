@@ -17,20 +17,22 @@
 # d) Организовать запись и чтение коллекции в/из файл.
 # e) Организовать обработку некорректного формата входного файла.
 
+require './index'
+
+
 class Basic
 
-  attr_reader :wage_per_hour, :employes
-
-  def initialize
-   @wage_per_hour = 10
+  def initialize(wage_hour_rate = 10, month_wage = 2000)
+    @wage_per_hour = wage_hour_rate
+    @month_wage = month_wage
   end
 
-  def wage
-    p wage_per_month = @wage_per_hour * 8 * 21
-  end
 
-  def employes
-    @empoyes = %w[ Ivanov, Petrov, Sidorov, Klichko, Zubov, Yakovlev, Vasilev, Romanov, Kot, Cherniy, Glebov]
-  end
+
+
+
+
+
+
 
 end

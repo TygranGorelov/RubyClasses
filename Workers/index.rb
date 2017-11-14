@@ -18,10 +18,57 @@
 # e) Организовать обработку некорректного формата входного файла.
 
 require './basic'
+require './hourly'
+require './fixed'
+
+
+# hourly_employees = %w[ Ivanov_H, Petrov_H, Sidorov_H, Klichko_H, Zubov_H, Yakovlev_H, Vasilev_H, Romanov_H, Kot_H, Cherniy_H, Glebov_H]
+#
+# fixed_employees = %w[ Ivanov_F, Petrov_F, Sidorov_F, Klichko_F, Zubov_F, Yakovlev_F, Vasilev_F, Romanov_F, Kot_F, Cherniy_F, Glebov_F]
+#
+# hourly_employees_wage = [10, 8, 7, 12, 9, 11, 6, 15, 10, 7, 9]
+#
+# fixed_employees_wage = [1650, 2000, 1500, 1200, 2150, 2100, 1500, 1480, 1200, 2050, 1444]
+
+hourly_employees = {
+    Ivanov_H: 10,
+    Petrov_H: 8,
+    Sidorov_H: 7,
+    Klichko_H: 12,
+    Zubov_H: 9,
+    Yakovlev_H: 11,
+    Vasilev_H: 6,
+    Romanov_H: 15,
+    Kot_H: 10,
+    Cherniy_H: 7,
+    Glebov_H: 9
+}
+
+fixed_employees = {
+    Ivanov_H: 1650,
+    Petrov_H: 2000,
+    Sidorov_H: 1500,
+    Klichko_H: 1200,
+    Zubov_H: 2150,
+    Yakovlev_H: 2100,
+    Vasilev_H: 1500,
+    Romanov_H: 1480,
+    Kot_H: 1200,
+    Cherniy_H: 2050,
+    Glebov_H: 1444
+}
+
 
 
 puts 'Зарплата на предприятии: '
 
 basic = Basic.new
+hourly = Hourly.new
+fixed = Fixed.new
 
-basic.wage
+p 'З/п у почасовых работников: ' + hourly.wage_per_month.to_s
+p 'З/п у работников с фиксированной оплатой: ' + fixed.wage_per_month.to_s
+
+p 'З/п у почасовых работников: '
+
+
