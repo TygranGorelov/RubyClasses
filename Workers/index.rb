@@ -39,7 +39,7 @@ new_arr.last(3).each { |item| puts item.id }
 
 p 'Организовать запись и чтение коллекции в/из файл: '
 
-headers = employees.at(0).instance_variables.keep_if {|variable| variable != :@salary}.map {|v| v.to_s.gsub(/@/, '')}
+headers = employees.at(0).instance_variables.reject {|variable| variable == :@salary}.map {|v| v.to_s.gsub(/@/, '')}
 
 headers.push('type')
 p 'Запись: '
@@ -52,7 +52,21 @@ end
 
 p 'Чтение: '
 
+
 csv = CSV.read('data.csv', :headers=>true)
 p csv['name'].first(5)
 p csv['avarage'].first(5)
+
+p '******' * 10
+p 'Проверка'
+
+name = 'data.csv'
+p name.reverse.split('.')[0].reverse == 'csv' ? 'Формат файла корректный!' :  'Формат файла НЕ корректный!'
+
+File.read(name).class
+str = File.read(name)
+p str.split("\n")[0].split(',').count == 4 ? 'Кол-во столбцов верное' : 'Кол-во столбцов НЕ верное'
+
+
+
 
