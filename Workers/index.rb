@@ -52,7 +52,6 @@ end
 
 p 'Чтение: '
 
-
 csv = CSV.read('data.csv', :headers=>true)
 p csv['name'].first(5)
 p csv['avarage'].first(5)

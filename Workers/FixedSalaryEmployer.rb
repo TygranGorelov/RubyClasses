@@ -6,3 +6,4 @@ class FixedSalaryEmployer < Employer
     @salary
   end
 end
+

@@ -18,19 +18,3 @@ class Employer
   def calculate; end
 end
 
-
-# class Test
-#
-#   def initialize(name)
-#     @name = name
-#   end
-#
-#   def test
-#     @name += ' lel'
-#   end
-# end
-#
-# employers = []
-# 5.times { |_| employers << Test.new('lel') }
-#
-# p employers.each(&:test)

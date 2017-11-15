@@ -6,3 +6,4 @@ class HourlyEmployer < Employer
     (20.8 * 8 * @salary).to_i
   end
 end
+
