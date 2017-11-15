@@ -1,57 +1,58 @@
-# Построить три класса (базовый и 2 потомка), описывающих некоторых работников с почасовой оплатой (один из потомков)
-# и фиксированной оплатой (второй потомок). Описать в базовом классе абстрактный метод для расчета среднемесячной
-# заработной платы.
-#         Для «повременщиков» формула для расчета такова:
-#                         «среднемесячная заработная плата = 20.8 * 8 * почасовую ставку»
-#         для работников с фиксированной оплатой
-#                         «среднемесячная заработная плата = фиксированной месячной оплате».
-#
-# a) Упорядочить всю последовательность работников по убыванию среднемесячного заработка.
-# При совпадении зарплаты – упорядочивать данные по алфавиту по имени. Вывести идентификатор работника,
-# имя и среднемесячный заработок для всех элементов списка.
-# b) Вывести первые 5 имен работников из полученного в пункте а) списка.
-# c) Вывести последние 3 идентификатора работников из полученного в пункте а) списка.
-# d) Организовать запись и чтение коллекции в/из файл.
-# e) Организовать обработку некорректного формата входного файла.
-
 require 'rubygems'
 require 'bundler/setup'
 require 'faker'
-
-require './workers'
-require './hourly'
-require './fixed'
+require 'csv'
+require './Employer'
+require './HourlyEmployer'
+require './FixedSalaryEmployer'
 
 employees = []
 10.times do |_|
-  employees << Fixed.new(Faker::Name.name, rand(999..2000))
+  employees << FixedSalaryEmployer.new(Faker::Name.name, rand(1500..2500))
 end
-
 
 10.times do |_|
-  employees << Hourly.new(Faker::Name.name, rand(10..99))
+  employees << HourlyEmployer.new(Faker::Name.name, rand(10..20))
 end
 
-p employees.map(&:avarage)
-
+employees.last(5).each { |e| e.salary = 100 }
 
 new_arr = []
 p 'Работники по убыванию среднемесячного заработка: '
-employees.sort_by{ |item| item.avarage }.each do |employee|
+employees.sort_by(&:calculate).each do |employee|
   obj = {
     id: employee.id,
     name: employee.name,
-    avarage: employee.avarage,
+    avarage: employee.calculate,
     class: employee.class
   }
-  new_arr << obj
+  employee.instance_variable_set(:@avarage, employee.calculate)
+  new_arr << employee
   p obj.values.join(' - ')
 end
 
 p 'Первые 5 работников с наименьшей з/п: '
-new_arr.first(5).each { |obj| p obj.values.join(' - ') }
+new_arr.first(5).each { |obj| p obj.to_s.split(',').join(' - ') }
 
 p 'Последние 3 идентификатора работников из списка: '
-new_arr.last(3).each { |item| puts item[:id] }
+new_arr.last(3).each { |item| puts item.id }
 
 p 'Организовать запись и чтение коллекции в/из файл: '
+
+headers = employees.at(0).instance_variables.keep_if {|variable| variable != :@salary}.map {|v| v.to_s.gsub(/@/, '')}
+
+headers.push('type')
+p 'Запись: '
+CSV.open('data.csv', 'w', col_sep: ',', write_headers: true, headers: headers) do |csv|
+  employees.each do |man|
+    csv << man.to_s.parse_csv
+  end
+  p 'Записано!'
+end
+
+p 'Чтение: '
+
+csv = CSV.read('data.csv', :headers=>true)
+p csv['name'].first(5)
+p csv['avarage'].first(5)
+

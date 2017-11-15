@@ -1,6 +1,6 @@
-require './workers'
+require './Employer'
 
-class Hourly < Workers
+class HourlyEmployer < Employer
 
   def calculate
     (20.8 * 8 * @salary).to_i
