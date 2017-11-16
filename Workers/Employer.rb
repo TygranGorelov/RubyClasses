@@ -1,20 +1,16 @@
 class Employer
+  attr_accessor :salary, :name, :id
+  OUTPUT_HEADER = %w[ID Name Salary].freeze
 
-  # @@id = 0
-  attr_accessor :salary, :name, :id, :avarage
-
-  def initialize(name, salary)
-    # @id = @@id += 1
-    @id = SecureRandom.hex
+  def initialize(name, salary, id = nil)
+    @id = id || SecureRandom.hex
     @name = name
     @salary = salary
-    # @avarage = calculate
-  end
+ end
 
   def to_s
-    "#{@id},#{@name},#{@avarage},#{self.class}"
+    [@id, @name, calculate].join(',')
   end
 
   def calculate; end
 end
-

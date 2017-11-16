@@ -6,8 +6,6 @@ require './Employer'
 require './HourlyEmployer'
 require './FixedSalaryEmployer'
 
-p ARGV[0]
-
 employees = []
 10.times do |_|
   employees << FixedSalaryEmployer.new(Faker::Name.name, rand(1500..2500))
@@ -17,35 +15,18 @@ end
   employees << HourlyEmployer.new(Faker::Name.name, rand(10..20))
 end
 
-employees.last(5).each { |e| e.salary = 100 }
-
-new_arr = []
 p 'Работники по убыванию среднемесячного заработка: '
-employees.sort_by(&:calculate).each do |employee|
-  obj = {
-    id: employee.id,
-    name: employee.name,
-    avarage: employee.calculate,
-    class: employee.class
-  }
-  employee.instance_variable_set(:@avarage, employee.calculate)
-  new_arr << employee
-  p obj.values.join(' - ')
-end
+employees.sort_by!(&:calculate)
 
 p 'Первые 5 работников с наименьшей з/п: '
-new_arr.first(5).each { |obj| p obj.to_s.split(',').join(' - ') }
+employees.first(5).each { |employer| p employer.to_s }
 
 p 'Последние 3 идентификатора работников из списка: '
-new_arr.last(3).each { |item| puts item.id }
+employees.last(3).each { |employer| puts employer.id }
 
 p 'Организовать запись и чтение коллекции в/из файл: '
-
-headers = employees.at(0).instance_variables.reject {|variable| variable == :@salary}.map {|v| v.to_s.gsub(/@/, '')}
-
-headers.push('type')
 p 'Запись: '
-CSV.open('data.csv', 'w', col_sep: ',', write_headers: true, headers: headers) do |csv|
+CSV.open('data3.csv', 'w', col_sep: ',', write_headers: true, headers: Employer::OUTPUT_HEADER) do |csv|
   employees.each do |man|
     csv << man.to_s.parse_csv
   end
@@ -58,27 +39,12 @@ csv = CSV.read('data.csv', :headers=>true)
 p csv['name'].first(5)
 p csv['avarage'].first(5)
 
-p '******' * 10
-p 'Проверка'
-p ARGV[0]
-
-p '******' * 10
-
-
-# name = 'data.csv'
 name = ARGV[0]
-p name.reverse.split('.')[0].reverse == 'csv' ? 'Формат файла корректный!' :  'Формат файла НЕ корректный!'
+p name.split('.').last == 'csv' ? 'Формат файла корректный!' :  'Формат файла НЕ корректный!'
 
-# File.read(name).class
 if File.exist?(name)
   str = File.read(name)
   p str.split("\n")[0].split(',').count == 4 ? 'Кол-во столбцов верное' : 'Кол-во столбцов НЕ верное'
 else
   p 'Такого файла не существует'
 end
-
-
-
-
-
-
