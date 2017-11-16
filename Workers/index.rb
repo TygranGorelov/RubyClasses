@@ -6,6 +6,8 @@ require './Employer'
 require './HourlyEmployer'
 require './FixedSalaryEmployer'
 
+p ARGV[0]
+
 employees = []
 10.times do |_|
   employees << FixedSalaryEmployer.new(Faker::Name.name, rand(1500..2500))
@@ -58,13 +60,24 @@ p csv['avarage'].first(5)
 
 p '******' * 10
 p 'Проверка'
+p ARGV[0]
 
-name = 'data.csv'
+p '******' * 10
+
+
+# name = 'data.csv'
+name = ARGV[0]
 p name.reverse.split('.')[0].reverse == 'csv' ? 'Формат файла корректный!' :  'Формат файла НЕ корректный!'
 
-File.read(name).class
-str = File.read(name)
-p str.split("\n")[0].split(',').count == 4 ? 'Кол-во столбцов верное' : 'Кол-во столбцов НЕ верное'
+# File.read(name).class
+if File.exist?(name)
+  str = File.read(name)
+  p str.split("\n")[0].split(',').count == 4 ? 'Кол-во столбцов верное' : 'Кол-во столбцов НЕ верное'
+else
+  p 'Такого файла не существует'
+end
+
+
 
 
 
